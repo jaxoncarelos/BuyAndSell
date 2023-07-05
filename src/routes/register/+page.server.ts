@@ -10,7 +10,7 @@ export const actions: Actions = {
 	default: async ({
 		request,
 		cookies
-	}: RequestEvent): Promise<User | ActionFailure<User> | Redirect | undefined> => {
+	}: RequestEvent): Promise<User | ActionFailure<User> | Redirect | undefined | string> => {
 		const formData = await request.formData();
 		const username = formData.get('username');
 		const password = formData.get('password');
@@ -20,16 +20,13 @@ export const actions: Actions = {
 		const lastName = formData.get('lastName');
 		try {
 			if (!username || !password || !confirmPassword || !email || !firstName || !lastName) {
-				console.log('Missing required fields');
-				return;
+				return 'Missing required fields'
 			}
 			if (!(password.toString() == confirmPassword.toString())) {
-				console.log("Passwords don't match");
-				return;
+				return 'Passwords do not match'
 			}
 			if (checkUserExists(username.toString())) {
-				console.log('User already exists');
-				return;
+				return 'User already exists';
 			}
 
 			const tempUser: User = {
@@ -50,7 +47,6 @@ export const actions: Actions = {
 			});
 			throw redirect(302, '/');
 		} finally {
-			console.log('Attempted to register user');
 		}
 	}
 };

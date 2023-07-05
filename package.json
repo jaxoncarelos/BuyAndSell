@@ -19,6 +19,7 @@
 		"@types/jsonwebtoken": "^9.0.2",
 		"@typescript-eslint/eslint-plugin": "^5.45.0",
 		"@typescript-eslint/parser": "^5.45.0",
+		"@zerodevx/svelte-toast": "^0.9.5",
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte": "^2.30.0",
@@ -35,6 +36,7 @@
 		"bcryptjs": "^2.4.3",
 		"better-sqlite3": "^8.4.0",
 		"jsonwebtoken": "^9.0.0",
-		"sqlite3": "^5.1.6"
+		"sqlite3": "^5.1.6",
+		"svelte-toasts": "^1.1.2"
 	}
 }

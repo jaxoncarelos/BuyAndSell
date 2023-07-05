@@ -1,11 +1,20 @@
-<script lang="ts">
-  export let data: any;
+<script>
+// @ts-nocheck
+
+  import {toasts, ToastContainer, FlatToast} from 'svelte-toasts';
+  const options = {
+    duration: 2000,
+  }
+
+  export let data;
   let user = data?.user
-  import { userStore } from '../lib/stores/stores';
   let loggedIn = user !== undefined;
 
 </script>
 
+<ToastContainer let:data={data}>
+  <FlatToast {data} />
+</ToastContainer>
 <div class="wrapper">
   <nav>
     <h2><a href="/">Buy and Sell</a></h2>

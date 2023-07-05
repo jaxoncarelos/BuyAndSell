@@ -8,25 +8,30 @@ import {
 	type RequestEvent
 } from '@sveltejs/kit';
 import jwt from 'jsonwebtoken';
+import bcryptjs from 'bcryptjs';
 export const actions: Actions = {
 	default: async ({
 		request,
 		cookies
-	}: RequestEvent): Promise<User | ActionFailure<User> | Redirect | undefined> => {
+	}: RequestEvent): Promise<User | ActionFailure<User> | Redirect | undefined | string> => {
 		const formData = await request.formData();
 		const username = formData.get('username');
 		const password = formData.get('password');
 
 		try {
 			if (!username || !password) {
-				console.log('Missing required fields');
-				return;
+				return 'Missing required fields';
 			}
 			const exists = checkUserExists(username.toString());
 			if (!exists) {
-				console.log("User doesn't exist");
-				return;
+				return 'User and password combo does not exist';
 			}
+      console.log(exists.toString())
+      const user = await findUser(exists.toString());
+      if (!user) return 'Error finding user';
+
+      const passwordMatch = await bcryptjs.compare(password.toString(), user.password!);
+      if (!passwordMatch) return 'User and password combo does not exist';
 			const token = jwt.sign(exists as string, SECRET_INGREDIENT);
 			cookies.set('authToken', token, {
 				path: '/',
