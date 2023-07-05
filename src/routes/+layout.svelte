@@ -1,7 +1,7 @@
 <script>
 // @ts-nocheck
 
-  import {toasts, ToastContainer, FlatToast} from 'svelte-toasts';
+  import {toasts, ToastContainer, BootstrapToast} from 'svelte-toasts';
   const options = {
     duration: 2000,
   }
@@ -13,7 +13,7 @@
 </script>
 
 <ToastContainer let:data={data}>
-  <FlatToast {data} />
+  <BootstrapToast {data} />
 </ToastContainer>
 <div class="wrapper">
   <nav>
