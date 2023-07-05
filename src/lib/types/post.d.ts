@@ -2,5 +2,5 @@ type Post = {
 	id: string | undefined;
 	title: string;
 	description: string;
-	likes: number;
+	likes: number | 0 ;
 };

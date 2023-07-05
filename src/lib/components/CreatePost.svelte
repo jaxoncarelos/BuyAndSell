@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <form action="post">
+  <form method="post">
     <label for="title">Title</label>
     <input type="text" id="title" name="title" />
     <label for="description">Description</label>

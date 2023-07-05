@@ -21,10 +21,12 @@
     <h2><a href="/">Buy and Sell</a></h2>
     <ul>
       {#if !loggedIn }
-        <li><a href="/login">Login</a></li>
-        <li><a href="/register">Register</a></li>
+        <li><h2><a href="/login">Login</a></h2></li>
+        <li><h2><a href="/register">Register</a></h2></li>
       {:else}
-        <h1>{user?.firstName}</h1>
+        <li><h2><a href="/createPost">Create Post</a></h2></li>
+        <li><h2><a href="/logout">Logout</a></h2></li>
+        <li><h2><a href="/{user?.firstName}">{user?.firstName}</a></h2></li>
       {/if}
     </ul>
   </nav>

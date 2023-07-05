@@ -61,6 +61,7 @@ export function addPostToUser(user: User, postId: string) {
 	const sql = "UPDATE users SET posts = posts || ' ' || ? WHERE id = ?";
 	const stmt = db.prepare(sql);
 	const result = stmt.run(postId, user.id);
+  console.log(result)
 
 	if (result) {
 		return true;
@@ -68,10 +69,18 @@ export function addPostToUser(user: User, postId: string) {
 	return false;
 }
 
+export function getPostsByUser(userId: string): Post[] {
+  const sql = 'SELECT * FROM posts WHERE authorId = ?';
+  const stmt = db.prepare(sql);
+  const posts = stmt.all(userId);
+
+  return posts as Post[];
+}
+
 export function createPost(post: Post, user: User): Post {
-	const sql = 'INSERT INTO posts (title, description) VALUES (?, ?, ?)';
+	const sql = 'INSERT INTO posts (title, description,authorId, likes) VALUES (?, ?, ?,?)';
 	const stmt = db.prepare(sql);
-	const result = stmt.run(post.title, post.description);
+	const result = stmt.run(post.title, post.description, user.id, post.likes);
 	const id = result.lastInsertRowid.toString();
 	addPostToUser(user, id);
 
