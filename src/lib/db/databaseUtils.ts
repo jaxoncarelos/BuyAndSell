@@ -49,8 +49,19 @@ export function checkUserExists(username: string): boolean | string {
 	return user.id!;
 }
 
+export function likePost(postId: string)
+{
+  const sql = 'UPDATE posts SET likes = likes + 1 WHERE id = ?';
+  const stmt = db.prepare(sql);
+  const result = stmt.run(postId);
+  if(result)
+  {
+    return true;
+  }
+  return false;
+}
 export function getPosts(): Post[] {
-	const sql = 'SELECT * FROM posts LIMIT 10 order by likes desc';
+	const sql = 'SELECT * FROM posts order by likes desc LIMIT 10 ';
 	const stmt = db.prepare(sql);
 	const posts = stmt.all();
 

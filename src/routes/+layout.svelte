@@ -1,6 +1,5 @@
 <script>
 // @ts-nocheck
-
   import {toasts, ToastContainer, BootstrapToast} from 'svelte-toasts';
   const options = {
     duration: 2000,
@@ -42,7 +41,6 @@
   }
   .wrapper {
     font-size: 1em;
-
     background: var(--background-color);
   }
   nav {

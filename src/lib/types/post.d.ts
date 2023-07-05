@@ -3,4 +3,5 @@ type Post = {
 	title: string;
 	description: string;
 	likes: number | 0 ;
+  usersLiked: string[];
 };
