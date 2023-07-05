@@ -42,6 +42,7 @@
     border-radius: px;
   }
   form {
+    gap: .5em;
     display: inherit;
     justify-content: center;
     align-items: center;
