@@ -15,6 +15,7 @@
 <ToastContainer let:data={data}>
   <BootstrapToast {data} />
 </ToastContainer>
+
 <div class="wrapper">
   <nav>
     <h2><a href="/">Buy and Sell</a></h2>
@@ -32,15 +33,18 @@
 <slot></slot>
 
 
+
 <style>
   h2 {
     color: var(--text-color);
   }
   .wrapper {
+    font-size: 1em;
+
     background: var(--background-color);
   }
   nav {
-    padding: 0 4em 0 4em;
+    padding: 1% 5% 1% 5%;
     background: var(--secondary);
     display: flex;
     align-items: center;
@@ -55,6 +59,5 @@
     display: inline-block;
     margin-left: 1rem;
     padding: 1em;
-    font-size: 1.2rem;
   }
 </style>
