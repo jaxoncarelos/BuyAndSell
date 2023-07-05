@@ -13,17 +13,17 @@ export const actions: Actions = {
 	}: RequestEvent): Promise<User | ActionFailure<User> | Redirect | undefined> => {
 		const formData = await request.formData();
 		const username = formData.get('username');
-		const Password = formData.get('password');
+		const password = formData.get('password');
 		const confirmPassword = formData.get('confirmPassword');
 		const email = formData.get('email');
 		const firstName = formData.get('firstName');
 		const lastName = formData.get('lastName');
 		try {
-			if (!username || !Password || !confirmPassword || !email || !firstName || !lastName) {
+			if (!username || !password || !confirmPassword || !email || !firstName || !lastName) {
 				console.log('Missing required fields');
 				return;
 			}
-			if (!(Password.toString() == confirmPassword.toString())) {
+			if (!(password.toString() == confirmPassword.toString())) {
 				console.log("Passwords don't match");
 				return;
 			}
@@ -35,7 +35,7 @@ export const actions: Actions = {
 			const tempUser: User = {
 				id: undefined,
 				username: username.toString(),
-				password: await bcryptjs.hash(Password.toString(), 10),
+				password: await bcryptjs.hash(password.toString(), 10),
 				email: email.toString(),
 				firstName: firstName.toString(),
 				lastName: lastName.toString()
@@ -46,9 +46,7 @@ export const actions: Actions = {
 			const token = jwt.sign(user.id!, SECRET_INGREDIENT);
 			cookies.set('authToken', token, {
 				path: '/',
-				httpOnly: true,
-				sameSite: 'strict',
-				maxAge: 60 * 60 * 24 * 7
+ 
 			});
 			throw redirect(302, '/');
 		} finally {
