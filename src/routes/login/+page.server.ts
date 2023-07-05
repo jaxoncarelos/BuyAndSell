@@ -29,7 +29,6 @@ export const actions: Actions = {
       console.log(exists.toString())
       const user = await findUser(exists.toString());
       if (!user) return 'Error finding user';
-
       const passwordMatch = await bcryptjs.compare(password.toString(), user.password!);
       if (!passwordMatch) return 'User and password combo does not exist';
 			const token = jwt.sign(exists as string, SECRET_INGREDIENT);
