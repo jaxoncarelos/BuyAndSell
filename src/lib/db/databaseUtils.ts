@@ -48,3 +48,32 @@ export function checkUserExists(username: string): boolean | string {
 	}
 	return user.id!;
 }
+
+export function getPosts(): Post[] {
+	const sql = 'SELECT * FROM posts LIMIT 10 order by likes desc';
+	const stmt = db.prepare(sql);
+	const posts = stmt.all();
+
+	return posts as Post[];
+}
+
+export function addPostToUser(user: User, postId: string) {
+	const sql = "UPDATE users SET posts = posts || ' ' || ? WHERE id = ?";
+	const stmt = db.prepare(sql);
+	const result = stmt.run(postId, user.id);
+
+	if (result) {
+		return true;
+	}
+	return false;
+}
+
+export function createPost(post: Post, user: User): Post {
+	const sql = 'INSERT INTO posts (title, description) VALUES (?, ?, ?)';
+	const stmt = db.prepare(sql);
+	const result = stmt.run(post.title, post.description);
+	const id = result.lastInsertRowid.toString();
+	addPostToUser(user, id);
+
+	return { ...post, id: result.lastInsertRowid.toString() };
+}

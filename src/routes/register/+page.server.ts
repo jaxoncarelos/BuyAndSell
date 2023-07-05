@@ -20,10 +20,10 @@ export const actions: Actions = {
 		const lastName = formData.get('lastName');
 		try {
 			if (!username || !password || !confirmPassword || !email || !firstName || !lastName) {
-				return 'Missing required fields'
+				return 'Missing required fields';
 			}
 			if (!(password.toString() == confirmPassword.toString())) {
-				return 'Passwords do not match'
+				return 'Passwords do not match';
 			}
 			if (checkUserExists(username.toString())) {
 				return 'User already exists';
@@ -42,8 +42,7 @@ export const actions: Actions = {
 
 			const token = jwt.sign(user.id!, SECRET_INGREDIENT);
 			cookies.set('authToken', token, {
-				path: '/',
- 
+				path: '/'
 			});
 			throw redirect(302, '/');
 		} finally {
