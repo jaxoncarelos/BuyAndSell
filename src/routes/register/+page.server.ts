@@ -40,7 +40,7 @@ export const actions: Actions = {
 			const user: User = await createUser(tempUser);
 			if (!user) throw new Error('Error creating user');
 
-			const token = jwt.sign(user.id!, SECRET_INGREDIENT);
+			const token = jwt.sign({id: user.id!}, SECRET_INGREDIENT, {expiresIn: '7d'});
 			cookies.set('authToken', token, {
 				path: '/'
 			});

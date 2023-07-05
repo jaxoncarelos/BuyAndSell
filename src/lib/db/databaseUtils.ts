@@ -49,12 +49,19 @@ export function checkUserExists(username: string): boolean | string {
 	return user.id!;
 }
 
-export function likePost(postId: string)
+export function likePost(userId: string, postId: string)
 {
-  const sql = 'UPDATE posts SET likes = likes + 1 WHERE id = ?';
-  const stmt = db.prepare(sql);
-  const result = stmt.run(postId);
-  if(result)
+  const userInUsersLiked = 'SELECT 1 from posts WHERE id = ? AND usersLiked LIKE ?';
+  const stmt1 = db.prepare(userInUsersLiked);
+  const result1 = stmt1.get(postId, `%${userId}%`);
+  if(result1)
+  {
+    return false;
+  }
+  const insertIntoUsersLikedAndIncrement = 'UPDATE posts SET usersLiked = usersLiked || ? || \' \', likes = likes + 1 WHERE id = ?';
+  const stmt2 = db.prepare(insertIntoUsersLikedAndIncrement);
+  const result2 = stmt2.run(userId, postId);
+  if(result2)
   {
     return true;
   }
@@ -89,9 +96,9 @@ export function getPostsByUser(userId: string): Post[] {
 }
 
 export function createPost(post: Post, user: User): Post {
-	const sql = 'INSERT INTO posts (title, description,authorId, likes) VALUES (?, ?, ?,?)';
+	const sql = 'INSERT INTO posts (title, description,authorId, likes, usersLiked) VALUES (?, ?, ?, ?, ?)';
 	const stmt = db.prepare(sql);
-	const result = stmt.run(post.title, post.description, user.id, post.likes);
+	const result = stmt.run(post.title, post.description, user.id, post.likes, '');
 	const id = result.lastInsertRowid.toString();
 	addPostToUser(user, id);
 

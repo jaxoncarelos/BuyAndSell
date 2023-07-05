@@ -20,17 +20,18 @@ export const actions: Actions = {
         id: undefined,
 				title: title.toString(),
 				description: description.toString(),
-        likes: 0
+        likes: 0,
+        usersLiked: []
 			};
 			const token = cookies.get('authToken');
 			if (!token) {
 				return 'Not logged in';
 			}
-			const userId = jwt.verify(token, SECRET_INGREDIENT);
+			const userId: any = jwt.verify(token, SECRET_INGREDIENT);
       if (!userId) {
         return 'Invalid token';
       }
-      const user = findUser(userId.toString());
+      const user = findUser(userId.id.toString());
 			const post = createPost(postObj, user);
       throw redirect(302, `/`);
 		} finally {

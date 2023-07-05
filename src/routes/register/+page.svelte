@@ -2,7 +2,6 @@
 	import RegisterForm from "$lib/components/RegisterForm.svelte";
   import {toasts} from 'svelte-toasts';
   export let form;
-  console.log(form)
   if(form)
   {
       const toast = toasts.add({

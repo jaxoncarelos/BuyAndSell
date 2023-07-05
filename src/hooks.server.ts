@@ -8,13 +8,17 @@ export async function handle({ event, resolve }: { event: RequestEvent; resolve:
 	const authToken = event.cookies.get('authToken');
 	try {
 		if (!authToken) event.locals.user = undefined;
-		const claims = jwt.verify(authToken!, SECRET_INGREDIENT) as string;
-		if (!claims) event.locals.user = undefined;
-		if (authToken && claims) {
-			const user: User = await findUser(claims);
-			console.log('Response: ', user);
-			if (!user) event.locals.user = undefined;
-			const { password, ...rest } = user;
+		const claims: any = jwt.verify(authToken!, SECRET_INGREDIENT);
+    console.log(claims.id)
+		if (!claims.id) event.locals.user = undefined;
+		if (authToken && claims.id) {
+			const user: User = findUser(claims.id);
+			if (!user) 
+      {
+        event.locals.user = undefined;
+        event.cookies.set('authToken', '', {maxAge: 0})
+      }
+        const { password, ...rest } = user;
 
 			event.locals.user = rest;
 			userStore.set(rest as User);
