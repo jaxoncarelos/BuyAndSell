@@ -1,9 +1,9 @@
-import { getPosts } from "$lib/db/databaseUtils";
+import { getPosts } from '$lib/db/databaseUtils';
 
-export async function load({ params }) {
-    let posts = getPosts();
-    console.log(posts)
-    return {
-      posts: posts,
-    }
+export async function load({ locals }) {
+	let posts = getPosts();
+	return {
+		authedUser: locals.user,
+		posts: posts
+	};
 }

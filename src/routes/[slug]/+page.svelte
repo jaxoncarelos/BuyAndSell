@@ -1,11 +1,9 @@
 <script>
-  import Post from '$lib/components/Post.svelte';
+	import ListPosts from '$lib/components/ListPosts.svelte';
   export let data;
-  let posts = data?.posts;
+  let Posts = data?.posts;
 </script>
 
 <div class="wrapper">
-  {#each posts as post }
-    <Post {post} />
-  {/each}
+  <ListPosts {Posts} />
 </div>

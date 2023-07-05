@@ -1,13 +1,15 @@
 <script>
 // @ts-nocheck
-  import {toasts, ToastContainer, BootstrapToast} from 'svelte-toasts';
-  const options = {
-    duration: 2000,
-  }
+  import {ToastContainer, BootstrapToast} from 'svelte-toasts';
+  import {userStore} from '$lib/stores/stores.ts';
 
-  export let data;
-  let user = data?.user
-  let loggedIn = user !== undefined;
+  console.log("User store", $userStore)
+  $:User = $userStore;
+  let loggedIn = false
+  $:{
+    loggedIn = User !== undefined;
+    console.log(User, loggedIn)
+  }
 
 </script>
 
@@ -18,6 +20,7 @@
 <div class="wrapper">
   <nav>
     <h2><a href="/">Buy and Sell</a></h2>
+    {#key loggedIn}
     <ul>
       {#if !loggedIn }
         <li><h2><a href="/login">Login</a></h2></li>
@@ -25,9 +28,10 @@
       {:else}
         <li><h2><a href="/createPost">Create Post</a></h2></li>
         <li><h2><a href="/logout">Logout</a></h2></li>
-        <li><h2><a href="/{user?.firstName}">{user?.firstName}</a></h2></li>
+        <li><h2><a href="/{User?.firstName}">{User?.firstName}</a></h2></li>
       {/if}
     </ul>
+    {/key}
   </nav>
 </div>
 

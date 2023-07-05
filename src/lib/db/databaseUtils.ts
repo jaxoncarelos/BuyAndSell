@@ -49,23 +49,21 @@ export function checkUserExists(username: string): boolean | string {
 	return user.id!;
 }
 
-export function likePost(userId: string, postId: string)
-{
-  const userInUsersLiked = 'SELECT 1 from posts WHERE id = ? AND usersLiked LIKE ?';
-  const stmt1 = db.prepare(userInUsersLiked);
-  const result1 = stmt1.get(postId, `%${userId}%`);
-  if(result1)
-  {
-    return false;
-  }
-  const insertIntoUsersLikedAndIncrement = 'UPDATE posts SET usersLiked = usersLiked || ? || \' \', likes = likes + 1 WHERE id = ?';
-  const stmt2 = db.prepare(insertIntoUsersLikedAndIncrement);
-  const result2 = stmt2.run(userId, postId);
-  if(result2)
-  {
-    return true;
-  }
-  return false;
+export function likePost(userId: string, postId: string) {
+	const userInUsersLiked = 'SELECT 1 from posts WHERE id = ? AND usersLiked LIKE ?';
+	const stmt1 = db.prepare(userInUsersLiked);
+	const result1 = stmt1.get(postId, `%${userId}%`);
+	if (result1) {
+		return false;
+	}
+	const insertIntoUsersLikedAndIncrement =
+		"UPDATE posts SET usersLiked = usersLiked || ? || ' ', likes = likes + 1 WHERE id = ?";
+	const stmt2 = db.prepare(insertIntoUsersLikedAndIncrement);
+	const result2 = stmt2.run(userId, postId);
+	if (result2) {
+		return true;
+	}
+	return false;
 }
 export function getPosts(): Post[] {
 	const sql = 'SELECT * FROM posts order by likes desc LIMIT 10 ';
@@ -79,7 +77,7 @@ export function addPostToUser(user: User, postId: string) {
 	const sql = "UPDATE users SET posts = posts || ' ' || ? WHERE id = ?";
 	const stmt = db.prepare(sql);
 	const result = stmt.run(postId, user.id);
-  console.log(result)
+	console.log(result);
 
 	if (result) {
 		return true;
@@ -88,15 +86,16 @@ export function addPostToUser(user: User, postId: string) {
 }
 
 export function getPostsByUser(userId: string): Post[] {
-  const sql = 'SELECT * FROM posts WHERE authorId = ?';
-  const stmt = db.prepare(sql);
-  const posts = stmt.all(userId);
+	const sql = 'SELECT * FROM posts WHERE authorId = ?';
+	const stmt = db.prepare(sql);
+	const posts = stmt.all(userId);
 
-  return posts as Post[];
+	return posts as Post[];
 }
 
 export function createPost(post: Post, user: User): Post {
-	const sql = 'INSERT INTO posts (title, description,authorId, likes, usersLiked) VALUES (?, ?, ?, ?, ?)';
+	const sql =
+		'INSERT INTO posts (title, description,authorId, likes, usersLiked) VALUES (?, ?, ?, ?, ?)';
 	const stmt = db.prepare(sql);
 	const result = stmt.run(post.title, post.description, user.id, post.likes, '');
 	const id = result.lastInsertRowid.toString();

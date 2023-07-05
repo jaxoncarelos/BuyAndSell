@@ -17,23 +17,23 @@ export const actions: Actions = {
 				return 'Title is too long';
 			}
 			const postObj = {
-        id: undefined,
+				id: undefined,
 				title: title.toString(),
 				description: description.toString(),
-        likes: 0,
-        usersLiked: []
+				likes: 0,
+				usersLiked: []
 			};
 			const token = cookies.get('authToken');
 			if (!token) {
 				return 'Not logged in';
 			}
 			const userId: any = jwt.verify(token, SECRET_INGREDIENT);
-      if (!userId) {
-        return 'Invalid token';
-      }
-      const user = findUser(userId.id.toString());
-			const post = createPost(postObj, user);
-      throw redirect(302, `/`);
+			if (!userId) {
+				return 'Invalid token';
+			}
+			const user = findUser(userId.id.toString());
+			createPost(postObj, user);
+			throw redirect(302, `/`);
 		} finally {
 		}
 	}

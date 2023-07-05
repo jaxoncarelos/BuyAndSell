@@ -9,6 +9,11 @@ import {
 } from '@sveltejs/kit';
 import jwt from 'jsonwebtoken';
 import bcryptjs from 'bcryptjs';
+export async function load({ cookies }) {
+	const authToken = cookies.get('authToken');
+	if (!authToken) return { clearUser: true };
+	return { clearUser: false };
+}
 export const actions: Actions = {
 	default: async ({
 		request,
@@ -30,7 +35,7 @@ export const actions: Actions = {
 			if (!user) return 'Error finding user';
 			const passwordMatch = await bcryptjs.compare(password.toString(), user.password!);
 			if (!passwordMatch) return 'User and password combo does not exist';
-      const token = jwt.sign({id: exists}, SECRET_INGREDIENT, {expiresIn: '7d'});
+			const token = jwt.sign({ id: exists }, SECRET_INGREDIENT, { expiresIn: '7d' });
 
 			cookies.set('authToken', token, {
 				path: '/',
