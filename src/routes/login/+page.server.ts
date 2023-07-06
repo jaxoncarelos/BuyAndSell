@@ -5,11 +5,12 @@ import {
 	type ActionFailure,
 	type Actions,
 	type Redirect,
-	type RequestEvent
+	type RequestEvent,
+  type Cookies
 } from '@sveltejs/kit';
 import jwt from 'jsonwebtoken';
 import bcryptjs from 'bcryptjs';
-export async function load({ cookies }) {
+export async function load({ cookies }: {cookies: Cookies}) {
 	const authToken = cookies.get('authToken');
 	if (!authToken) return { clearUser: true };
 	return { clearUser: false };
