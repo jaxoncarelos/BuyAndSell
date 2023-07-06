@@ -17,7 +17,7 @@ export async function createUser(user: User): Promise<User> {
 	try {
 		const stmt = db.prepare(sql);
 		const result = stmt.run(
-			user.username,
+			user.username.toLowerCase(),
 			user.password,
 			user.email,
 			user.firstName,
@@ -77,7 +77,6 @@ export function addPostToUser(user: User, postId: string) {
 	const sql = "UPDATE users SET posts = posts || ' ' || ? WHERE id = ?";
 	const stmt = db.prepare(sql);
 	const result = stmt.run(postId, user.id);
-	console.log(result);
 
 	if (result) {
 		return true;

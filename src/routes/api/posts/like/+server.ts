@@ -13,7 +13,7 @@ export async function POST({ request, cookies }) {
 	if (!claims) {
 		throw redirect(305, '/login');
 	}
-	console.log(postId, claims.id.toString());
+	(postId, claims.id.toString());
 	const result = likePost(claims.id.toString(), postId.id);
 	return new Response(JSON.stringify({ success: result }));
 }

@@ -2,6 +2,7 @@ import { getPosts } from '$lib/db/databaseUtils';
 
 export async function load({ locals }) {
 	let posts = getPosts();
+  console.log("Locals.user: ", locals.user)
 	return {
 		authedUser: locals.user,
 		posts: posts

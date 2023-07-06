@@ -7,14 +7,9 @@
   import {writable} from 'svelte/store'
   const modal = writable(null)
   const showModal = () => modal.set(CreatePost)
-  console.log("User store", $userStore)
-  $:User = $userStore;
-  let loggedIn = false
-  $:{
-    loggedIn = User !== undefined;
-    console.log(User, loggedIn)
-  }
 
+  export let data;
+  let user = data.user;
 </script>
 
 <ToastContainer let:data={data}>
@@ -25,15 +20,15 @@
 <div class="wrapper">
   <nav>
     <h2><a href="/">Buy and Sell</a></h2>
-    {#key loggedIn}
+    {#key user}
     <ul>
-      {#if !loggedIn }
+      {#if !user }
         <li><h2><a href="/login">Login</a></h2></li>
         <li><h2><a href="/register">Register</a></h2></li>
       {:else}
         <li><h2><button on:click={showModal}>Create Post</button></h2></li>
         <li><h2><a href="/logout">Logout</a></h2></li>
-        <li><h2><a href="/{User?.firstName}">{User?.firstName}</a></h2></li>
+        <li><h2><a href="/{user?.username}">{user?.username}</a></h2></li>
       {/if}
     </ul>
     {/key}

@@ -10,14 +10,12 @@
       },
       body: JSON.stringify({ id: post.id }),
     });
-    console.log(response)
     if (response.status === 200 && (await response.json()).success) {
       post.likes++;
     } else {
       toasts.add({ title: "Error", type: "error", description: 'You already liked this post!' })
     }
 
-    console.log(response)
   }
 </script>
 <div class="wrapper">
