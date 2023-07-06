@@ -10,14 +10,15 @@
 
 <style>
   .wrapper {
+    opacity: 0.95;
     box-shadow: 5px 8px 3px rgba(0, 0, 0, 0.25);
     border-radius: 1px;
     background: var(--primary);
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50em;
-    height: 50em;
+    width: 40em;
+    height: 40em;
     border-radius: px;
   }
   form {

@@ -1,6 +1,10 @@
 <script>
   import ListPosts from "$lib/components/ListPosts.svelte";
+  import CreatePost from "$lib/components/CreatePost.svelte";
 	import { userStore } from '$lib/stores/stores';
+  import Modal from 'svelte-simple-modal';
+	import { writable } from "svelte/store";
+
   export let data;
 
   $:{
@@ -9,6 +13,8 @@
   }
   let Posts = data.posts
 </script>
+
+
 <div class="test">
   <ListPosts {Posts} />
 </div>

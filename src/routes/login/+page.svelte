@@ -6,7 +6,7 @@
   export let data;
   if(form)
   {
-      const toast = toasts.add({
+      toasts.add({
         type: 'error',
         title: 'Error',
         description: form as string,
