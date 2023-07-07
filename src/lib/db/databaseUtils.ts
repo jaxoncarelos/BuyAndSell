@@ -1,4 +1,3 @@
-import type { Database, RunResult } from "better-sqlite3";
 import DatabaseConstructor from "better-sqlite3";
 import path from "path";
 const db = new DatabaseConstructor(path.resolve("./database.db"), {
@@ -12,9 +11,7 @@ db.exec(
 export async function createUser(user: User): Promise<User> {
   const sql =
     "INSERT INTO users (username, password, email, firstName, lastName) VALUES (?, ?, ?, ?, ?)";
-  const stmt1 = db.prepare(
-    "select name from sqlite_master where type = 'table'"
-  );
+
   try {
     const stmt = db.prepare(sql);
     const result = stmt.run(

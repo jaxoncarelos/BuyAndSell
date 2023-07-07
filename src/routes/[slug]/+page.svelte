@@ -1,6 +1,4 @@
 <script>
-// @ts-nocheck
-
 	import ListPosts from '$lib/components/ListPosts.svelte';
   export let data;
 </script>
