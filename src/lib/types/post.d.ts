@@ -1,7 +1,7 @@
 type Post = {
-	id: string | undefined;
-	title: string;
-	description: string;
-	likes: number | 0;
-	usersLiked: string[];
+  id: string | undefined;
+  title: string;
+  description: string;
+  likes: number | 0;
+  usersLiked: string[];
 };

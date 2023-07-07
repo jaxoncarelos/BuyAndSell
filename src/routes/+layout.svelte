@@ -8,8 +8,7 @@
   const modal = writable(null)
   const showModal = () => modal.set(CreatePost)
 
-  export let data;
-  let user = data.user;
+  $: user = $userStore
 </script>
 
 <ToastContainer let:data={data}>
@@ -26,7 +25,7 @@
         <li><h2><a href="/login">Login</a></h2></li>
         <li><h2><a href="/register">Register</a></h2></li>
       {:else}
-        <li><h2><button on:click={showModal}>Create Post</button></h2></li>
+        <li><h2><button on:click={showModal}><h2>Create Post</h2></button></h2></li>
         <li><h2><a href="/logout">Logout</a></h2></li>
         <li><h2><a href="/{user?.username}">{user?.username}</a></h2></li>
       {/if}
@@ -48,6 +47,15 @@
 
 
 <style>
+  button {
+    background: var(--secondary);
+    color: var(--text-color);
+    border: none;
+    padding: 1em;
+    cursor: pointer;
+    color: var(--text-color);
+
+  }
   .modalWrapper{    
     position: absolute;
     display: flex;
