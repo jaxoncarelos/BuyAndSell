@@ -23,7 +23,7 @@ export const actions: Actions = {
     User | ActionFailure<User> | Redirect | undefined | string
   > => {
     const formData = await request.formData();
-    const username = formData.get("username");
+    const username = formData.get("username")?.toString().toLocaleLowerCase();
     const password = formData.get("password");
 
     try {
