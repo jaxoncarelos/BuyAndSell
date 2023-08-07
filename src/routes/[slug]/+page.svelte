@@ -1,6 +1,6 @@
-<script>
+<script lang="ts">
 	import ListPosts from '$lib/components/ListPosts.svelte';
-  export let data;
+  export let data: {posts: Post[]};
 </script>
 {#if data.posts }
 <div class="wrapper">

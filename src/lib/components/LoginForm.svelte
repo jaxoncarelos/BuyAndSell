@@ -61,10 +61,8 @@
     margin: .5em;
     font-size: 1.25em;
     margin-top: 1.5em;
-    /* good looking background color with var(--primary) to contrast */
     border: 4px solid var(--accent);;
     background: none;
-    /* shadow */
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
 </style>
