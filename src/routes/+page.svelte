@@ -1,13 +1,8 @@
 <script>
   import ListPosts from "$lib/components/ListPosts.svelte";
-	import { userStore } from '$lib/stores/stores';
 
   export let data;
 
-  $:{
-      const newUser = data?.authedUser;
-      userStore.set(newUser);
-  }
   let Posts = data.posts
 </script>
 
