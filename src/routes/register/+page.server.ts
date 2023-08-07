@@ -45,7 +45,7 @@ export const actions: Actions = {
 
       const tempUser: User = {
         id: undefined,
-        username: username.toString(),
+        username: username.toString().toLowerCase(),
         password: await bcryptjs.hash(password.toString(), 10),
         email: email.toString(),
         firstName: firstName.toString(),

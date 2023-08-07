@@ -15,7 +15,7 @@ export async function createUser(user: User): Promise<User> {
   try {
     const stmt = db.prepare(sql);
     const result = stmt.run(
-      user.username.toLowerCase(),
+      user.username,
       user.password,
       user.email,
       user.firstName,

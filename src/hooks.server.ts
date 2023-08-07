@@ -11,10 +11,12 @@ export async function handle({
   resolve: any;
 }) {
   const authToken = event.cookies.get("authToken");
-  try {
     if (!authToken) event.locals.user = undefined;
+
     const claims: any = jwt.verify(authToken!, SECRET_INGREDIENT);
+
     if (!claims.id) event.locals.user = undefined;
+    
     if (authToken && claims.id) {
       const user: User = findUser(claims.id);
       if (!user) {
@@ -25,7 +27,4 @@ export async function handle({
 
       event.locals.user = rest;
     }
-  } finally {
-    return await resolve(event);
   }
-}
