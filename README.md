@@ -1,1 +1,1 @@
-Full Stack item buying and selling app.
+Full Stack built with Sveltekit and Sqlite.
